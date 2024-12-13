@@ -6,7 +6,7 @@ export interface OtpProps {
 
 export interface AuthProps {
   message: string
-  status: string
+  status: 'success' | 'danger'
 }
 
 export interface AddressProps {

@@ -17,6 +17,8 @@ class Session {
 
     await fs.writeFile(this.DB_PATH, JSON.stringify(data))
   }
+
+  async checkOTP() {}
 }
 
 const session = new Session()

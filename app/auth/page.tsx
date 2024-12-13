@@ -1,56 +1,24 @@
 'use client'
-import { Form, Input, Button } from '@nextui-org/react'
-import { FormEvent, useState } from 'react'
+import { useState } from 'react'
 import { Alert } from '@nextui-org/react'
-import { useMutation } from 'react-query'
-import authSchema from '@/schemas/auth.schema'
-import { AuthProps } from '../api/auth/auth.types'
-import appApi from '@/http/app.api'
+import EnterOtpForm from '@/components/auth/enter-otp.form'
+import EnterEmailForm from '@/components/auth/enter-email.form'
+import useAuthStore from '@/store/auth/auth.store'
 
 export default function Dashboard() {
-  const [errorMessage, setErrorMessage] = useState<string>()
+  const [state, setState] = useState<'sign-in' | 'otp'>('sign-in')
+  const { message } = useAuthStore()
 
-  const mutation = useMutation({
-    mutationFn: (form: { email: string }) => {
-      return appApi.post<AuthProps>('/api/auth', form)
-    },
-    onSuccess: (data) => {
-      console.log(data)
-    },
-  })
-
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault()
-
-      mutation.reset()
-      setErrorMessage(undefined)
-
-      const data = Object.fromEntries(new FormData(e.currentTarget))
-      const validData = authSchema.validateSync(data)
-      mutation.mutate(validData)
-    } catch (e: unknown) {
-      console.log(e)
-      setErrorMessage((e as Record<string, string>).message)
-    }
-  }
+  const handleOtpState = () => setState('otp')
 
   return (
-    <Form onSubmit={onSubmit} className="p-10 gap-5 h-lvh items-stretch justify-center">
-      {errorMessage && (
-        <div>
-          <Alert color={'danger'} title={errorMessage} />
+    <div className="p-10 gap-5 h-lvh flex flex-col items-center justify-center">
+      {message && (
+        <div className="w-full">
+          <Alert color={message.state} title={message.text} />
         </div>
       )}
-      {mutation.isSuccess && (
-        <div>
-          <Alert color={mutation.data.data.status} title={mutation.data.data.message} />
-        </div>
-      )}
-      <Input isRequired label="Email" labelPlacement="outside" name="email" placeholder="Enter your email" type="email" />
-      <Button isLoading={mutation.isLoading} type="submit" variant="bordered">
-        Submit
-      </Button>
-    </Form>
+      {state === 'sign-in' ? <EnterEmailForm handleSubmit={handleOtpState} /> : <EnterOtpForm />}
+    </div>
   )
 }

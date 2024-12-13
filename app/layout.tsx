@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import UiProvider from '@/providers/ui.provider'
 
 export const metadata: Metadata = {
   title: 'Forwardie',
@@ -12,7 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <UiProvider>{children}</UiProvider>
+      </body>
     </html>
   )
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import UiProvider from '@/providers/ui.provider'
+import Providers from '@/providers/base.provider'
 
 export const metadata: Metadata = {
   title: 'Forwardie',
@@ -12,9 +12,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <UiProvider>{children}</UiProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

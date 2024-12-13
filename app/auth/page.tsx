@@ -3,6 +3,8 @@ import { Form, Input, Button } from '@nextui-org/react'
 import { FormEvent, useState } from 'react'
 import { Alert } from '@nextui-org/react'
 import { string, object } from 'yup'
+import { useMutation } from 'react-query'
+import axios from 'axios'
 
 const formSchema = object({
   email: string().email('Please enter valid email').required('Email field is required'),
@@ -11,13 +13,27 @@ const formSchema = object({
 export default function Dashboard() {
   const [errorMessage, setErrorMessage] = useState<string>()
 
+  const mutation = useMutation({
+    mutationFn: (form: { email: string }) => {
+      return axios.post<{ message: string; status: string }>('/api/auth', form)
+    },
+    onSuccess: (data) => {
+      console.log(data)
+    },
+  })
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault()
+
+      mutation.reset()
+      setErrorMessage(undefined)
+
       const data = Object.fromEntries(new FormData(e.currentTarget))
       const validData = formSchema.validateSync(data)
-      console.log(validData)
+      mutation.mutate(validData)
     } catch (e: unknown) {
+      console.log(e)
       setErrorMessage((e as Record<string, string>).message)
     }
   }
@@ -30,8 +46,13 @@ export default function Dashboard() {
             <Alert color={'danger'} title={errorMessage} />
           </div>
         )}
+        {mutation.isSuccess && (
+          <div>
+            <Alert color={mutation.data.data.status} title={mutation.data.data.message} />
+          </div>
+        )}
         <Input isRequired label="Email" labelPlacement="outside" name="email" placeholder="Enter your email" type="email" />
-        <Button isLoading={false} type="submit" variant="bordered">
+        <Button isLoading={mutation.isLoading} type="submit" variant="bordered">
           Submit
         </Button>
       </Form>

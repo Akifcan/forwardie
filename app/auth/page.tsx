@@ -2,20 +2,17 @@
 import { Form, Input, Button } from '@nextui-org/react'
 import { FormEvent, useState } from 'react'
 import { Alert } from '@nextui-org/react'
-import { string, object } from 'yup'
 import { useMutation } from 'react-query'
 import axios from 'axios'
-
-const formSchema = object({
-  email: string().email('Please enter valid email').required('Email field is required'),
-})
+import authSchema from '@/schemas/auth.schema'
+import { OTPProps } from '../api/auth/auth.types'
 
 export default function Dashboard() {
   const [errorMessage, setErrorMessage] = useState<string>()
 
   const mutation = useMutation({
     mutationFn: (form: { email: string }) => {
-      return axios.post<{ message: string; status: string }>('/api/auth', form)
+      return axios.post<OTPProps>('/api/auth', form)
     },
     onSuccess: (data) => {
       console.log(data)
@@ -30,7 +27,7 @@ export default function Dashboard() {
       setErrorMessage(undefined)
 
       const data = Object.fromEntries(new FormData(e.currentTarget))
-      const validData = formSchema.validateSync(data)
+      const validData = authSchema.validateSync(data)
       mutation.mutate(validData)
     } catch (e: unknown) {
       console.log(e)

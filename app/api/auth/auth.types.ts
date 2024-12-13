@@ -1,4 +1,10 @@
-export interface OTPProps {
+export interface OtpProps {
+  email: string
+  otp: number
+  expires: number
+}
+
+export interface AuthProps {
   message: string
   status: string
 }

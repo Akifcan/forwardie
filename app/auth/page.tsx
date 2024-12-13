@@ -4,7 +4,7 @@ import { FormEvent, useState } from 'react'
 import { Alert } from '@nextui-org/react'
 import { useMutation } from 'react-query'
 import authSchema from '@/schemas/auth.schema'
-import { OTPProps } from '../api/auth/auth.types'
+import { AuthProps } from '../api/auth/auth.types'
 import appApi from '@/http/app.api'
 
 export default function Dashboard() {
@@ -12,7 +12,7 @@ export default function Dashboard() {
 
   const mutation = useMutation({
     mutationFn: (form: { email: string }) => {
-      return appApi.post<OTPProps>('/api/auth', form)
+      return appApi.post<AuthProps>('/api/auth', form)
     },
     onSuccess: (data) => {
       console.log(data)

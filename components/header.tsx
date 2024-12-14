@@ -26,7 +26,7 @@ export default function Header() {
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-5 flex-wrap">
         <Button onPress={onOpen} isIconOnly aria-label="Logout to app" color="warning" variant="faded">
           <MenuIcon />
         </Button>

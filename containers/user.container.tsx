@@ -42,10 +42,10 @@ export default function UserContainer({ children }: Readonly<{ children: ReactNo
     )
   }
   return (
-    <div className="flex flex-col gap-10 py-10 px-5 container mx-auto">
+    <div className="flex flex-col gap-10 py-10 px-5 container mx-auto h-lvh">
       <Header />
       <LastCommentsList />
-      {children}
+      <div className="flex-1">{children}</div>
     </div>
   )
 }

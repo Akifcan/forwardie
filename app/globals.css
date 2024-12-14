@@ -1,9 +1,15 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.mx-auto {
+  margin-inline: auto;
+}
+
+.px-5 {
+  padding-block: 1.5rem;
+}
+
+.gap-10 {
+  gap: 2.5rem;
+}

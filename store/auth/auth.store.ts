@@ -2,10 +2,10 @@ import { create } from 'zustand'
 
 const useAuthStore = create<AuthState>((set) => ({
   message: undefined,
-  state: 'sign-in',
+  email: undefined,
 
   setMessage: (message) => set((state) => ({ message: (state.message = message) })),
-  setState: (message) => set(() => ({ state: message })),
+  setEmail: (email) => set(() => ({ email })),
 }))
 
 export default useAuthStore

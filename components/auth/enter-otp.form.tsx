@@ -1,38 +1,40 @@
 import { AuthProps } from '@/app/api/auth/auth.types'
 import appApi from '@/http/app.api'
-import authSchema from '@/schemas/auth.schema'
+import otpSchema from '@/schemas/otp.schema'
 import useAuthStore from '@/store/auth/auth.store'
 import { Button, Form, Input } from '@nextui-org/react'
 import { FormEvent } from 'react'
 import { useMutation } from 'react-query'
 
 export default function EnterOtpForm() {
-  const { setState } = useAuthStore()
+  const { setEmail, setMessage } = useAuthStore()
 
-  const handleResetLoginState = () => setState('sign-in')
+  const handleResetLoginState = () => setEmail(undefined)
 
   const mutation = useMutation({
-    mutationFn: (form: { email: string }) => {
-      return appApi.post<AuthProps>('/api/auth', form)
+    mutationFn: (form: { otp: string }) => {
+      return appApi.post<AuthProps>('/api/auth/otp', form)
     },
     onSuccess: (data) => {
       console.log(data)
+    },
+    onError: (e) => {
+      console.log(e)
     },
   })
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault()
-
       mutation.reset()
-      //   setErrorMessage(undefined)
+      setMessage(undefined)
 
       const data = Object.fromEntries(new FormData(e.currentTarget))
-      const validData = authSchema.validateSync(data)
+      const validData = otpSchema.validateSync(data)
       mutation.mutate(validData)
     } catch (e: unknown) {
       console.log(e)
-      //   setErrorMessage((e as Record<string, string>).message)
+      setMessage({ state: 'danger', text: (e as Record<string, string>).message })
     }
   }
 
@@ -43,7 +45,7 @@ export default function EnterOtpForm() {
         <Button variant="solid" isLoading={mutation.isLoading} type="submit">
           Submit OTP Code
         </Button>
-        <Button onPress={handleResetLoginState} type="submit" variant="bordered">
+        <Button onPress={handleResetLoginState} type="button" variant="bordered">
           Use another email address
         </Button>
       </div>

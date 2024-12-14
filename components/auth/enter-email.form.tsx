@@ -7,7 +7,7 @@ import { FormEvent } from 'react'
 import { useMutation } from 'react-query'
 
 export default function EnterEmailForm() {
-  const { setMessage, setState } = useAuthStore()
+  const { setMessage, setEmail } = useAuthStore()
 
   const mutation = useMutation({
     mutationFn: (form: { email: string }) => {
@@ -28,7 +28,7 @@ export default function EnterEmailForm() {
       const data = Object.fromEntries(new FormData(e.currentTarget))
       const validData = authSchema.validateSync(data)
       mutation.mutate(validData)
-      setState('otp')
+      setEmail(validData.email)
     } catch (e: unknown) {
       console.log(e)
       setMessage({ state: 'danger', text: (e as Record<string, string>).message })

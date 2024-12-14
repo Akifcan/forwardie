@@ -24,7 +24,18 @@ class Session {
     await fs.writeFile(this.DB_PATH, JSON.stringify(data))
   }
 
-  async checkOTP() {}
+  async checkOTP(otp: number, email: string) {
+    const buffer = await fs.readFile(this.DB_PATH)
+    const data = JSON.parse(buffer.toString()) as OtpProps[]
+    console.log(data)
+    const record = data.find((record) => record.email === email && otp)
+
+    if (!record) {
+      return false
+    }
+    console.log(record)
+    return 'adfasdf'
+  }
 }
 
 const session = new Session()

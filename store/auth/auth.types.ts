@@ -3,12 +3,10 @@ interface MessageProps {
   text: string
 }
 
-type LoginState = 'sign-in' | 'otp'
-
 interface AuthState {
-  state: LoginState
   message?: MessageProps
+  email?: string
 
   setMessage: (message?: MessageProps) => void
-  setState: (state: LoginState) => void
+  setEmail: (email?: string) => void
 }

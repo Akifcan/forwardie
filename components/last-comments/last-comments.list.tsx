@@ -34,7 +34,7 @@ export default function LastCommentsList() {
               return <User key={comment.id} description={<p className="text-xl">{comment.body}</p>} name={comment.name} />
             })
           ) : (
-            <Alert color={'primary'} title={"You don't have comment yet"} />
+            <Alert color={'primary'} title={"You don't have a comment yet"} />
           )}
         </>
       )}

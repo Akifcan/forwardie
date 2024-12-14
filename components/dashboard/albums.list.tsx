@@ -29,7 +29,7 @@ export default function AlbumsList() {
                   <TableCell>{album.id}</TableCell>
                   <TableCell>{album.title}</TableCell>
                   <TableCell>
-                    <Button startContent={<PhotoIcon />} onPress={() => router.push('/albums')}>
+                    <Button startContent={<PhotoIcon />} onPress={() => router.push(`/albums/${album.id}`)}>
                       View Photos
                     </Button>
                   </TableCell>

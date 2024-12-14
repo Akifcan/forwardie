@@ -1,8 +1,8 @@
 import { Drawer, DrawerContent, DrawerHeader, DrawerBody, DrawerFooter, Button, useDisclosure, User } from '@nextui-org/react'
-import LogoutIcon from './icons/logout.icon'
 import MenuIcon from './icons/menu.icon'
 import UserIcon from './icons/user.icon'
 import useUserStore from '@/store/user/user.store'
+import LogoutButton from './auth/logout.button'
 
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -31,9 +31,7 @@ export default function Header() {
         </Button>
         <h1 className="text-3xl mr-auto">Forwardie</h1>
         <User className="cursor-pointer" onClick={onOpen} description={user?.company.name} name={user?.name} />
-        <Button isIconOnly aria-label="Logout to app" color="warning" variant="faded">
-          <LogoutIcon />
-        </Button>
+        <LogoutButton />
       </div>
     </>
   )

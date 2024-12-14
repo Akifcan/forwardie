@@ -16,7 +16,7 @@ export default function TodosList() {
           <TableHeader>
             <TableColumn>ID</TableColumn>
             <TableColumn>TITLE</TableColumn>
-            <TableColumn>ACTION</TableColumn>
+            <TableColumn>COMPLETED</TableColumn>
           </TableHeader>
           <TableBody>
             {data.data.map((todo) => {

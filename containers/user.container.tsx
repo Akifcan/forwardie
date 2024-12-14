@@ -18,7 +18,6 @@ export default function UserContainer({ children }: Readonly<{ children: ReactNo
         if (!response.data?.user) {
           return router.push('/auth')
         }
-        console.log('setting')
         setUser(response.data.user)
       } catch (e) {
         setMessage({ state: 'danger', text: 'This is unexcepted behaviour please try to log in again.' })

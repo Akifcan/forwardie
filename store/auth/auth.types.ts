@@ -1,4 +1,4 @@
-export type AlertStateProps = 'success' | 'danger'
+export type AlertStateProps = 'success' | 'danger' | 'primary'
 
 interface MessageProps {
   state: AlertStateProps

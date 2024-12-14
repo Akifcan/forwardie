@@ -10,7 +10,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     setMessage(undefined)
-  }, [state])
+  }, [state, setMessage])
 
   return (
     <div className="p-10 gap-5 h-lvh flex flex-col items-center justify-center">

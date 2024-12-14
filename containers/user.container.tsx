@@ -4,13 +4,12 @@ import useUserStore from '@/store/user/user.store'
 import { UserProps } from '@/app/api/auth/auth.types'
 import { Spinner } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect } from 'react'
 
 export default function UserContainer({ children }: Readonly<{ children: ReactNode }>) {
   const { user, setUser } = useUserStore()
   const { setMessage } = useAuthStore()
   const router = useRouter()
-  const [isLoggedIn, setLoggedIn] = useState<boolean>()
 
   useEffect(() => {
     const handleVerify = async () => {
@@ -19,12 +18,11 @@ export default function UserContainer({ children }: Readonly<{ children: ReactNo
         if (!response.data?.user) {
           return router.push('/auth')
         }
+        console.log('setting')
         setUser(response.data.user)
       } catch (e) {
         setMessage({ state: 'danger', text: 'This is unexcepted behaviour please try to log in again.' })
         router.push('/auth')
-      } finally {
-        setLoggedIn(true)
       }
     }
 
@@ -35,7 +33,7 @@ export default function UserContainer({ children }: Readonly<{ children: ReactNo
     handleVerify()
   }, [])
 
-  if (isLoggedIn === undefined) {
+  if (!user) {
     return (
       <div className="p-10 gap-5 h-lvh flex flex-col items-center justify-center">
         <Spinner color="primary" label="Logging In" labelColor="primary" size="lg" />

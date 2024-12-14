@@ -1,3 +1,4 @@
+'use client'
 import UserContainer from '@/containers/user.container'
 import Link from 'next/link'
 

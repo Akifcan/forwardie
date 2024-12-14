@@ -10,7 +10,7 @@ export default function TodosList() {
   })
 
   return (
-    <List title="Albums" isLoading={isLoading} isError={isError}>
+    <List title="Todos" isLoading={isLoading} isError={isError}>
       {data?.data && (
         <Table aria-label="Last 5 Todos">
           <TableHeader>

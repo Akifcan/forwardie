@@ -3,7 +3,7 @@ import otpSchema from '@/schemas/otp.schema'
 import useAuthStore from '@/store/auth/auth.store'
 import { EnterOtpProps } from '@/app/api/auth/auth.types'
 import { Button, Form, Input } from '@nextui-org/react'
-import { FormEvent } from 'react'
+import { ClipboardEvent, FormEvent } from 'react'
 import { useMutation } from 'react-query'
 import { useRouter } from 'next/navigation'
 import { AlertStateProps } from '@/store/auth/auth.types'
@@ -32,16 +32,32 @@ export default function EnterOtpForm() {
     },
   })
 
+  const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
+    const clipboard = e.clipboardData.getData('text')
+    if (!clipboard) {
+      return
+    }
+    const validData = otpSchema.validateSync({ otp: clipboard })
+    handleOtpCode(validData.otp)
+  }
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault()
-
-      mutation.reset()
-
       const data = Object.fromEntries(new FormData(e.currentTarget))
       const validData = otpSchema.validateSync(data)
-      mutation.mutate(validData)
+      handleOtpCode(validData.otp)
     } catch (e: unknown) {
+      console.log(e)
+      setMessage({ state: 'danger', text: (e as Record<string, string>).message })
+    }
+  }
+
+  const handleOtpCode = async (otp: string) => {
+    try {
+      mutation.reset()
+      mutation.mutate({ otp })
+    } catch (e) {
       console.log(e)
       setMessage({ state: 'danger', text: (e as Record<string, string>).message })
     }
@@ -49,7 +65,7 @@ export default function EnterOtpForm() {
 
   return (
     <Form onSubmit={onSubmit} className="w-full gap-5" key={'otp'}>
-      <Input isRequired label="Enter OTP Code" labelPlacement="outside" name="otp" placeholder="Enter OTP Code" type="number" max={4} />
+      <Input onPaste={handlePaste} isRequired label="Enter OTP Code" labelPlacement="outside" name="otp" placeholder="Enter OTP Code" type="number" max={4} />
       <div className="flex gap-3">
         <Button variant="solid" isLoading={mutation.isLoading} type="submit">
           Submit OTP Code

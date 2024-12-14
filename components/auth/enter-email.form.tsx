@@ -6,8 +6,8 @@ import { Button, Form, Input } from '@nextui-org/react'
 import { FormEvent } from 'react'
 import { useMutation } from 'react-query'
 
-export default function EnterEmailForm({ handleSubmit }: Readonly<{ handleSubmit: () => void }>) {
-  const { setMessage } = useAuthStore()
+export default function EnterEmailForm() {
+  const { setMessage, setState } = useAuthStore()
 
   const mutation = useMutation({
     mutationFn: (form: { email: string }) => {
@@ -15,7 +15,6 @@ export default function EnterEmailForm({ handleSubmit }: Readonly<{ handleSubmit
     },
     onSuccess: (data) => {
       setMessage({ state: data.data.status, text: data.data.message })
-      handleSubmit()
     },
   })
 
@@ -29,6 +28,7 @@ export default function EnterEmailForm({ handleSubmit }: Readonly<{ handleSubmit
       const data = Object.fromEntries(new FormData(e.currentTarget))
       const validData = authSchema.validateSync(data)
       mutation.mutate(validData)
+      setState('otp')
     } catch (e: unknown) {
       console.log(e)
       setMessage({ state: 'danger', text: (e as Record<string, string>).message })
@@ -36,10 +36,10 @@ export default function EnterEmailForm({ handleSubmit }: Readonly<{ handleSubmit
   }
 
   return (
-    <Form onSubmit={onSubmit} className="w-full gap-5">
+    <Form onSubmit={onSubmit} className="w-full gap-5" key={'email'}>
       <Input isRequired label="Email" labelPlacement="outside" name="email" placeholder="Enter your email" type="email" />
       <Button isLoading={mutation.isLoading} type="submit" variant="bordered">
-        Submit
+        Get Your OTP Code
       </Button>
     </Form>
   )

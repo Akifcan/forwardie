@@ -5,9 +5,15 @@ class Session {
 
   async saveOTP(otp: number, email: string) {
     const buffer = await fs.readFile(this.DB_PATH)
-    const data = JSON.parse(buffer.toString()) as OtpProps[]
+    let data = JSON.parse(buffer.toString()) as OtpProps[]
 
     const MILLIS_TWO_MINUTE = 120000
+
+    const isRecordExists = data.find((record) => record.email === email)
+
+    if (isRecordExists) {
+      data = data.filter((record) => record.email !== email)
+    }
 
     data.push({
       otp,

@@ -1,15 +1,16 @@
 'use client'
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { Alert } from '@nextui-org/react'
 import EnterOtpForm from '@/components/auth/enter-otp.form'
 import EnterEmailForm from '@/components/auth/enter-email.form'
 import useAuthStore from '@/store/auth/auth.store'
 
 export default function Dashboard() {
-  const [state, setState] = useState<'sign-in' | 'otp'>('sign-in')
-  const { message } = useAuthStore()
+  const { message, state, setMessage } = useAuthStore()
 
-  const handleOtpState = () => setState('otp')
+  useEffect(() => {
+    setMessage(undefined)
+  }, [state])
 
   return (
     <div className="p-10 gap-5 h-lvh flex flex-col items-center justify-center">
@@ -18,7 +19,7 @@ export default function Dashboard() {
           <Alert color={message.state} title={message.text} />
         </div>
       )}
-      {state === 'sign-in' ? <EnterEmailForm handleSubmit={handleOtpState} /> : <EnterOtpForm />}
+      {state === 'sign-in' ? <EnterEmailForm /> : <EnterOtpForm />}
     </div>
   )
 }

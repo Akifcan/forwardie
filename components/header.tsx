@@ -3,6 +3,7 @@ import MenuIcon from './icons/menu.icon'
 import UserIcon from './icons/user.icon'
 import useUserStore from '@/store/user/user.store'
 import LogoutButton from './auth/logout.button'
+import Link from 'next/link'
 
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -29,7 +30,9 @@ export default function Header() {
         <Button onPress={onOpen} isIconOnly aria-label="Logout to app" color="warning" variant="faded">
           <MenuIcon />
         </Button>
-        <h1 className="text-3xl mr-auto">Forwardie</h1>
+        <Link href={'/'} className="mr-auto">
+          <h1 className="text-3xl">Forwardie</h1>
+        </Link>
         <User className="cursor-pointer" onClick={onOpen} description={user?.company.name} name={user?.name} />
         <LogoutButton />
       </div>

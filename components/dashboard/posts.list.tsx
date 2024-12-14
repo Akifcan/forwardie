@@ -4,14 +4,16 @@ import { useQuery } from 'react-query'
 import jsonPlaceholderApi from '@/http/json-placeholder.api'
 import { PostProps } from '@/store/posts/post.types'
 import BookIcon from '../icons/book.icon'
+import { useRouter } from 'next/navigation'
 export default function PostsList() {
   const { data, isError, isLoading } = useQuery<{ data: PostProps[] }>({
     queryKey: ['posts-dashboard'],
     queryFn: () => jsonPlaceholderApi.get('/posts?_start=0&_limit=5'),
   })
+  const router = useRouter()
 
   return (
-    <List title="Posts" onPress={() => {}} isLoading={isLoading} isError={isError}>
+    <List title="Posts" onPress={() => router.push('/posts')} isLoading={isLoading} isError={isError}>
       {data?.data && (
         <Table aria-label="Last 5 Posts">
           <TableHeader>

@@ -5,6 +5,8 @@ import { UserProps } from '@/app/api/auth/auth.types'
 import { Spinner } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { ReactNode, useEffect } from 'react'
+import LastCommentsList from '@/components/last-comments/last-comments.list'
+import Header from '@/components/header'
 
 export default function UserContainer({ children }: Readonly<{ children: ReactNode }>) {
   const { user, setUser } = useUserStore()
@@ -39,6 +41,11 @@ export default function UserContainer({ children }: Readonly<{ children: ReactNo
       </div>
     )
   }
-
-  return children
+  return (
+    <div className="flex flex-col gap-10 py-10 px-5 container mx-auto">
+      <Header />
+      <LastCommentsList />
+      {children}
+    </div>
+  )
 }

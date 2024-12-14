@@ -6,7 +6,7 @@ import appApi from '@/http/app.api'
 import { useRouter } from 'next/navigation'
 import useAuthStore from '@/store/auth/auth.store'
 export default function LogoutButton() {
-  const { setMessage } = useAuthStore()
+  const { setMessage, setEmail } = useAuthStore()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const router = useRouter()
 
@@ -17,6 +17,7 @@ export default function LogoutButton() {
     onSuccess: () => {
       router.push('/auth')
       setMessage({ state: 'primary', text: 'See you again' })
+      setEmail(undefined)
     },
   })
 

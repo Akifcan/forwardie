@@ -14,6 +14,9 @@ export default function UserContainer({ children }: Readonly<{ children: ReactNo
   const router = useRouter()
 
   useEffect(() => {
+    if (user) {
+      return
+    }
     const handleVerify = async () => {
       try {
         const response = await appApi.get<{ user?: UserProps }>('/api/auth/verify')
@@ -25,10 +28,6 @@ export default function UserContainer({ children }: Readonly<{ children: ReactNo
         setMessage({ state: 'danger', text: 'This is unexcepted behaviour please try to log in again.' })
         router.push('/auth')
       }
-    }
-
-    if (user) {
-      return
     }
 
     handleVerify()

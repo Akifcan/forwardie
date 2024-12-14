@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { AuthState } from './auth.types'
 
 const useAuthStore = create<AuthState>((set) => ({
   message: undefined,

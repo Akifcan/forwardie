@@ -5,7 +5,7 @@ interface MessageProps {
   text: string
 }
 
-interface AuthState {
+export interface AuthState {
   message?: MessageProps
   email?: string
 

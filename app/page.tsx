@@ -3,6 +3,7 @@ import AlbumsList from '@/components/dashboard/albums.list'
 import PostsList from '@/components/dashboard/posts.list'
 import TodosList from '@/components/dashboard/todos.list'
 import Header from '@/components/header'
+import LastCommentsList from '@/components/last-comments/last-comments.list'
 import UserContainer from '@/containers/user.container'
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
     <UserContainer>
       <div className="flex flex-col gap-10 py-10 px-5 container mx-auto">
         <Header />
+        <LastCommentsList />
         <div className="grid gap-5 grid-cols-3">
           <PostsList />
           <AlbumsList />

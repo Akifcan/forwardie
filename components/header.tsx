@@ -30,7 +30,7 @@ export default function Header() {
           <MenuIcon />
         </Button>
         <h1 className="text-3xl mr-auto">Forwardie</h1>
-        <User description={user?.company.name} name={user?.name} />
+        <User className="cursor-pointer" onClick={onOpen} description={user?.company.name} name={user?.name} />
         <Button isIconOnly aria-label="Logout to app" color="warning" variant="faded">
           <LogoutIcon />
         </Button>

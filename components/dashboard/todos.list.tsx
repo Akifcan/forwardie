@@ -1,37 +1,38 @@
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from '@nextui-org/react'
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Checkbox } from '@nextui-org/react'
 import List from '../list'
+import { useQuery } from 'react-query'
+import jsonPlaceholderApi from '@/http/json-placeholder.api'
+import { TodoProps } from '@/store/todos/todo.types'
 export default function TodosList() {
+  const { data, isError, isLoading } = useQuery<{ data: TodoProps[] }>({
+    queryKey: ['todos-dashboard'],
+    queryFn: () => jsonPlaceholderApi.get('/todos'),
+  })
+
   return (
-    <List title="Todos">
-      <Table aria-label="Example static collection table">
-        <TableHeader>
-          <TableColumn>NAME</TableColumn>
-          <TableColumn>ROLE</TableColumn>
-          <TableColumn>STATUS</TableColumn>
-        </TableHeader>
-        <TableBody>
-          <TableRow key="1">
-            <TableCell>Tony Reichert</TableCell>
-            <TableCell>CEO</TableCell>
-            <TableCell>Active</TableCell>
-          </TableRow>
-          <TableRow key="2">
-            <TableCell>Zoey Lang</TableCell>
-            <TableCell>Technical Lead</TableCell>
-            <TableCell>Paused</TableCell>
-          </TableRow>
-          <TableRow key="3">
-            <TableCell>Jane Fisher</TableCell>
-            <TableCell>Senior Developer</TableCell>
-            <TableCell>Active</TableCell>
-          </TableRow>
-          <TableRow key="4">
-            <TableCell>William Howard</TableCell>
-            <TableCell>Community Manager</TableCell>
-            <TableCell>Vacation</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+    <List title="Albums" isLoading={isLoading} isError={isError}>
+      {data?.data && (
+        <Table aria-label="Last 5 Todos">
+          <TableHeader>
+            <TableColumn>ID</TableColumn>
+            <TableColumn>TITLE</TableColumn>
+            <TableColumn>ACTION</TableColumn>
+          </TableHeader>
+          <TableBody>
+            {data.data.map((todo) => {
+              return (
+                <TableRow key={todo.id}>
+                  <TableCell>{todo.id}</TableCell>
+                  <TableCell>{todo.title}</TableCell>
+                  <TableCell>
+                    <Checkbox defaultSelected={todo.completed} size="lg" />
+                  </TableCell>
+                </TableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
+      )}
     </List>
   )
 }

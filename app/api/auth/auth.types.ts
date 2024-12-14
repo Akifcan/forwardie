@@ -2,11 +2,16 @@ export interface OtpProps {
   email: string
   otp: number
   expires: number
+  user: UserProps
 }
 
 export interface AuthProps {
   message: string
   status: 'success' | 'danger'
+}
+
+export interface EnterOtpProps extends AuthProps {
+  token: string
 }
 
 export interface AddressProps {

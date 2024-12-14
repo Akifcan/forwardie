@@ -1,33 +1,39 @@
-import { AuthProps } from '@/app/api/auth/auth.types'
 import appApi from '@/http/app.api'
 import otpSchema from '@/schemas/otp.schema'
 import useAuthStore from '@/store/auth/auth.store'
+import { EnterOtpProps } from '@/app/api/auth/auth.types'
 import { Button, Form, Input } from '@nextui-org/react'
 import { FormEvent } from 'react'
 import { useMutation } from 'react-query'
+import { useRouter } from 'next/navigation'
+import { AlertStateProps } from '@/store/auth/auth.types'
 
 export default function EnterOtpForm() {
-  const { setEmail, setMessage } = useAuthStore()
+  const router = useRouter()
+  const { setEmail, setMessage, email } = useAuthStore()
 
   const handleResetLoginState = () => setEmail(undefined)
 
   const mutation = useMutation({
     mutationFn: (form: { otp: string }) => {
-      return appApi.post<AuthProps>('/api/auth/otp', form)
+      return appApi.post<EnterOtpProps>('/api/auth/otp', { otp: form.otp, email })
     },
     onSuccess: (data) => {
-      console.log(data)
+      setMessage({ state: data.data.status, text: data.data.message })
+      if (data.status === 200) {
+        router.push('/')
+      }
     },
-    onError: (e) => {
-      console.log(e)
+    onError: (e: { response: { data: Record<string, string> } }) => {
+      setMessage({ state: e.response.data.status as AlertStateProps, text: e.response.data?.message })
     },
   })
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault()
+
       mutation.reset()
-      setMessage(undefined)
 
       const data = Object.fromEntries(new FormData(e.currentTarget))
       const validData = otpSchema.validateSync(data)

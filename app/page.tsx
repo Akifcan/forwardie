@@ -1,15 +1,18 @@
 'use client'
-import useBearStore from '@/store/bears/bears.store'
+import UserContainer from '@/containers/user.container'
+import useUserStore from '@/store/user/user.store'
 import Link from 'next/link'
 
 export default function Home() {
-  const { bears, increase } = useBearStore()
+  const { user } = useUserStore()
 
   return (
-    <div>
-      <Link href={'/dashboard'}>dashboard</Link>
-      <p>{bears}</p>
-      <button onClick={increase}>inc</button>
-    </div>
+    <UserContainer>
+      <div>
+        <Link href={'/'}>dashboard</Link>
+        <Link href={'/albums'}>albums</Link>
+        <p>{JSON.stringify(user)}</p>
+      </div>
+    </UserContainer>
   )
 }

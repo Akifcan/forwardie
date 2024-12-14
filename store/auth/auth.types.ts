@@ -1,5 +1,7 @@
+export type AlertStateProps = 'success' | 'danger'
+
 interface MessageProps {
-  state: 'success' | 'danger'
+  state: AlertStateProps
   text: string
 }
 

@@ -14,7 +14,6 @@ class RolesDb {
 
     return roles || { userId, permissions: [] }
   }
-
   async hasRole(userId: number, role?: string) {
     if (!this.#ROLES) {
       const buffer = await fs.readFile(this.#DB_PATH)
@@ -23,7 +22,6 @@ class RolesDb {
     }
 
     const roles = this.#ROLES.find((user) => user.userId === userId)
-    console.log(roles)
 
     if (!roles) {
       return false

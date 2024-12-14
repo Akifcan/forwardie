@@ -2,9 +2,10 @@ import fs from 'fs/promises'
 import { OtpProps, UserProps } from '../../auth/auth.types'
 import jwt from 'jsonwebtoken'
 import rolesDb from './roles.db'
+import path from 'path'
 
 class Session {
-  #DB_PATH = process.cwd() + '/app/api/db/sessions/sessions.json'
+  #DB_PATH = process.env.ENV === 'local' ? process.cwd() + '/app/api/db/sessions/sessions.json' : path.join('/tmp', 'sessions.json')
 
   async saveOTP(otp: number, user: UserProps) {
     const buffer = await fs.readFile(this.#DB_PATH)

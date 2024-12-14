@@ -4,12 +4,14 @@ import UserContainer from '@/containers/user.container'
 import jsonPlaceholderApi from '@/http/json-placeholder.api'
 import { PostProps } from '@/store/posts/post.types'
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Button } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
 import { useRef, useState } from 'react'
 import { useMutation } from 'react-query'
 
 export default function Client({ posts }: Readonly<{ posts: PostProps[] }>) {
   const [list, setList] = useState<PostProps[]>(posts)
   const page = useRef(0)
+  const router = useRouter()
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -41,7 +43,7 @@ export default function Client({ posts }: Readonly<{ posts: PostProps[] }>) {
                   <TableCell>{post.id}</TableCell>
                   <TableCell>{post.title}</TableCell>
                   <TableCell>
-                    <Button startContent={<BookIcon />} onPress={() => {}}>
+                    <Button startContent={<BookIcon />} onPress={() => router.push(`/posts/${post.id}`)}>
                       View Detail
                     </Button>
                   </TableCell>

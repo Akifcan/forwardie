@@ -28,7 +28,7 @@ export default function PostsList() {
                   <TableCell>{post.id}</TableCell>
                   <TableCell>{post.title}</TableCell>
                   <TableCell>
-                    <Button startContent={<BookIcon />} onPress={() => {}}>
+                    <Button startContent={<BookIcon />} onPress={() => router.push(`/posts/${post.id}`)}>
                       View Detail
                     </Button>
                   </TableCell>

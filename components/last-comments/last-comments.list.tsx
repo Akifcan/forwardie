@@ -22,7 +22,7 @@ export default function LastCommentsList() {
         setComments(response.data!.data)
       }
     })
-  }, [])
+  }, [setComments, refetch])
 
   return (
     <div className="flex flex-col gap-5 items-start">

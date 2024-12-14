@@ -12,7 +12,10 @@ export default function EnterOtpForm() {
   const router = useRouter()
   const { setEmail, setMessage, email } = useAuthStore()
 
-  const handleResetLoginState = () => setEmail(undefined)
+  const handleResetLoginState = () => {
+    setEmail(undefined)
+    setMessage(undefined)
+  }
 
   const mutation = useMutation({
     mutationFn: (form: { otp: string }) => {

@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import rolesDb from './roles.db'
 
 class Session {
-  #DB_PATH = process.env.ENV === 'local' ? process.cwd() + '/app/api/db/sessions/sessions.json' : process.cwd() + '/var/task/tmp/sessions.json'
+  #DB_PATH = process.cwd() + '/app/api/db/sessions/sessions.json'
 
   async saveOTP(otp: number, user: UserProps) {
     const buffer = await fs.readFile(this.#DB_PATH)

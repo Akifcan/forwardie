@@ -31,6 +31,8 @@ export interface CompanyProps {
   bs: string
 }
 
+export type Permissions = 'view-todo' | 'view-album' | 'view-post'
+
 export interface UserProps {
   id: number
   name: string
@@ -40,4 +42,8 @@ export interface UserProps {
   website: string
   address: AddressProps
   company: CompanyProps
+  roles: {
+    userId: number
+    permissions: Permissions[]
+  }
 }

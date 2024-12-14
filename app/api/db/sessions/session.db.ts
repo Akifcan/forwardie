@@ -1,6 +1,7 @@
 import fs from 'fs/promises'
 import { OtpProps, UserProps } from '../../auth/auth.types'
 import jwt from 'jsonwebtoken'
+import rolesDb from './roles.db'
 
 class Session {
   #DB_PATH = process.cwd() + '/app/api/db/sessions/sessions.json'
@@ -38,8 +39,9 @@ class Session {
 
     data = data.filter((record) => record.email !== email)
     await fs.writeFile(this.#DB_PATH, JSON.stringify(data))
-
-    const token = jwt.sign(record.user, process.env.AUTH_SECRET!)
+    const roles = await rolesDb.getUserRole(record.user.id)
+    console.log({ ...record.user, roles })
+    const token = jwt.sign({ ...record.user, roles }, process.env.AUTH_SECRET!)
     return token
   }
 }

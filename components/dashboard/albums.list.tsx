@@ -5,6 +5,7 @@ import jsonPlaceholderApi from '@/http/json-placeholder.api'
 import { AlbumProps } from '@/store/albums/album.types'
 import PhotoIcon from '../icons/photo.icon'
 import { useRouter } from 'next/navigation'
+import useUserStore from '@/store/user/user.store'
 export default function AlbumsList() {
   const router = useRouter()
 
@@ -13,8 +14,11 @@ export default function AlbumsList() {
     queryFn: () => jsonPlaceholderApi.get('/albums?_start=0&_limit=5'),
   })
 
+  const { user } = useUserStore()
+  const HAS_ACCESS = user?.roles.permissions.find((role) => role === 'view-album') ? true : false
+
   return (
-    <List title="Albums" onPress={() => router.push('/albums')} isLoading={isLoading} isError={isError}>
+    <List hasAccess={HAS_ACCESS} title="Albums" onPress={() => router.push('/albums')} isLoading={isLoading} isError={isError}>
       {data?.data && (
         <Table aria-label="Last 5 Album">
           <TableHeader>

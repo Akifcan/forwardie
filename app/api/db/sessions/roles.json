@@ -1,0 +1,18 @@
+[
+  {
+    "userId": 1,
+    "permissions": ["view-todo", "view-album", "view-post"]
+  },
+  {
+    "userId": 2,
+    "permissions": ["view-todo", "view-album", "view-post"]
+  },
+  {
+    "userId": 3,
+    "permissions": ["view-todo"]
+  },
+  {
+    "userId": 4,
+    "permissions": []
+  }
+]

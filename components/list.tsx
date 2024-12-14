@@ -7,8 +7,9 @@ export default function List({
   onPress,
   isLoading,
   isError,
-}: Readonly<{ title: string; children: ReactNode; onPress?: () => void; isLoading: boolean; isError: boolean }>) {
-  return (
+  hasAccess,
+}: Readonly<{ title: string; children: ReactNode; onPress?: () => void; isLoading: boolean; isError: boolean; hasAccess: boolean }>) {
+  return hasAccess ? (
     <div className="flex flex-col gap-5">
       <h3 className="text-2xl">{title}</h3>
       {isError && <Alert color="danger" title="Fetching error occured" />}
@@ -26,5 +27,5 @@ export default function List({
         </Button>
       )}
     </div>
-  )
+  ) : null
 }

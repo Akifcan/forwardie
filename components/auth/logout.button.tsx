@@ -5,8 +5,10 @@ import { useMutation } from 'react-query'
 import appApi from '@/http/app.api'
 import { useRouter } from 'next/navigation'
 import useAuthStore from '@/store/auth/auth.store'
+import useUserStore from '@/store/user/user.store'
 export default function LogoutButton() {
   const { setMessage, setEmail } = useAuthStore()
+  const { setUser } = useUserStore()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const router = useRouter()
 
@@ -18,6 +20,7 @@ export default function LogoutButton() {
       router.push('/auth')
       setMessage({ state: 'primary', text: 'See you again' })
       setEmail(undefined)
+      setUser(undefined)
     },
   })
 

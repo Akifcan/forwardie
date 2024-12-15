@@ -66,7 +66,7 @@ export default function EnterOtpForm() {
     <Form onSubmit={onSubmit} className="w-full gap-5" key={'otp'}>
       {/* <Input onPaste={handlePaste} isRequired label="Enter OTP Code" labelPlacement="outside" name="otp" placeholder="Enter OTP Code" type="number" max={4} /> */}
       <InputOtp length={4} value={value} onValueChange={setValue} onPaste={handlePaste} />
-      <div className="flex gap-3">
+      <div className="flex gap-3 flex-wrap">
         <Button variant="solid" isLoading={mutation.isLoading} type="submit">
           Submit OTP Code
         </Button>

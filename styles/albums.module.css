@@ -1,7 +1,20 @@
 .album-container {
+  --cols: 1fr 1fr 1fr;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: var(--cols);
   gap: 1rem;
+}
+
+@media (max-width: 1000px) {
+  .album-container {
+    --cols: 1fr 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .album-container {
+    --cols: 1fr;
+  }
 }
 
 .album-item {

@@ -29,7 +29,7 @@ export default function Client({ posts }: Readonly<{ posts: PostProps[] }>) {
 
   return (
     <UserContainer>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 pb-10">
         <Table aria-label="Last 5 Posts">
           <TableHeader>
             <TableColumn>ID</TableColumn>

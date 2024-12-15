@@ -4,14 +4,12 @@ import UserIcon from './icons/user.icon'
 import useUserStore from '@/store/user/user.store'
 import LogoutButton from './auth/logout.button'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useUser } from '@/hooks/user.hook'
+import { useLogout } from '@/hooks/logout.hook'
 
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useUserStore()
-  const router = useRouter()
-  const { logout } = useUser()
+  const { logout } = useLogout()
   return (
     <>
       <Drawer isOpen={isOpen} size={'2xl'} placement="top" onClose={onClose}>
@@ -20,7 +18,6 @@ export default function Header() {
           <DrawerBody>
             <Button
               onPress={() => {
-                router.push('/auth')
                 logout()
               }}
               aria-label="Logout to app"

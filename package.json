@@ -8,6 +8,7 @@
     "droplet": "next start --port 5017",
     "start": "next start",
     "lint": "next lint",
+    "type-check": "npx tsc",
     "prepare": "husky"
   },
   "dependencies": {

@@ -2,18 +2,21 @@ import useAuthStore from '@/store/auth/auth.store'
 import useUserStore from '@/store/user/user.store'
 import { useRouter } from 'next/navigation'
 
-export const useUser = () => {
+export const useLogout = () => {
   const router = useRouter()
   const { setMessage, setEmail } = useAuthStore()
   const { setUser } = useUserStore()
 
-  const logout = () => {
+  const resetCredentials = () => {
     setMessage({ state: 'primary', text: 'See you again' })
     setEmail(undefined)
     setUser(undefined)
   }
 
-  return {
-    logout,
+  const logout = () => {
+    router.push('/auth')
+    resetCredentials()
   }
+
+  return { logout, resetCredentials }
 }

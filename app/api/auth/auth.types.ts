@@ -5,6 +5,11 @@ export interface OtpProps {
   user: UserProps
 }
 
+export interface AccountProps {
+  id: number
+  sessionId: string
+}
+
 export interface AuthProps {
   message: string
   status: 'success' | 'danger'
@@ -12,7 +17,7 @@ export interface AuthProps {
 
 export interface EnterOtpProps extends AuthProps {
   token: string
-  session: { userId: number; sessionId: string }
+  session: AccountProps
 }
 
 export interface AddressProps {

@@ -1,5 +1,5 @@
-import { AccountProps } from '@/store/account/account.types'
 import fs from 'fs/promises'
+import { AccountProps } from '../../auth/auth.types'
 
 export class AccountDb {
   #DB_PATH = process.cwd() + '/app/api/db/sessions/accounts.json'

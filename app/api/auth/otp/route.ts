@@ -3,7 +3,7 @@ import sessionDb from '../../db/sessions/session.db'
 import otpVerifySchema from '@/schemas/otp-verify.schema'
 import { cookies } from 'next/headers'
 import { v4 as uuidv4 } from 'uuid'
-import accountDb from '../../db/sessions/account.db'
+import accountDb from '../../db/accounts/account.db'
 
 async function POST(req: NextRequest) {
   try {
@@ -18,7 +18,7 @@ async function POST(req: NextRequest) {
     cookieStore.set('token', user.token)
 
     if (!cookieStore.get('session-id')?.value) {
-      cookieStore.set('session-id', `${uuidv4()}-${user.user.id}`)
+      cookieStore.set('session-id', uuidv4())
     }
 
     accountDb.saveAccount(cookieStore.get('session-id')!.value, user.user.id)

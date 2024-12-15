@@ -2,7 +2,7 @@ import fs from 'fs/promises'
 import { AccountProps } from '../../auth/auth.types'
 
 export class AccountDb {
-  #DB_PATH = process.cwd() + '/app/api/db/sessions/accounts.json'
+  #DB_PATH = process.cwd() + '/app/api/db/accounts/accounts.json'
 
   async saveAccount(sessionId: string, id: number) {
     const buffer = await fs.readFile(this.#DB_PATH)

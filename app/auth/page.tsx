@@ -12,7 +12,7 @@ export default function Dashboard() {
     <div className="p-10 gap-5 h-lvh flex flex-col items-center justify-center">
       <AccountsList />
       {message && (
-        <div className="w-full">
+        <div className="w-full self-start">
           <Alert color={message.state} title={message.text} />
         </div>
       )}

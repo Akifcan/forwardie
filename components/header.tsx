@@ -5,18 +5,28 @@ import useUserStore from '@/store/user/user.store'
 import LogoutButton from './auth/logout.button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useUser } from '@/hooks/user.hook'
 
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useUserStore()
   const router = useRouter()
+  const { logout } = useUser()
   return (
     <>
       <Drawer isOpen={isOpen} size={'2xl'} placement="top" onClose={onClose}>
         <DrawerContent>
           <DrawerHeader className="flex flex-col gap-1">Forwardie</DrawerHeader>
           <DrawerBody>
-            <Button onPress={() => router.push('/auth')} aria-label="Logout to app" color="default" variant="faded">
+            <Button
+              onPress={() => {
+                router.push('/auth')
+                logout()
+              }}
+              aria-label="Logout to app"
+              color="default"
+              variant="faded"
+            >
               <UserIcon />
               New user
             </Button>

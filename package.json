@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "droplet": "next start --port 5017",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky"

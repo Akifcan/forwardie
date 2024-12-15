@@ -25,8 +25,11 @@
 
 - - Diğer e-postaların varsayılan olarak rolü yok.
 
-
+![img1](https://i.ibb.co/5rkrVdL/Screenshot-2024-12-15-at-14-54-58.png)
 
 ![img2](https://i.ibb.co/TrpWD72/Screenshot-2024-12-15-at-14-53-51.png)
 
+![img3](https://i.ibb.co/wSWZsf8/IMG-EB7754551620-1.jpg)
+![img4](https://i.ibb.co/Yy2XtRB/Forwardie-1.jpg)
+![img5](https://i.ibb.co/Cb8dFqw/Forwardie.jpg)
 

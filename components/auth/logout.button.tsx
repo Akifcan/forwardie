@@ -3,24 +3,18 @@ import LogoutIcon from '../icons/logout.icon'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@nextui-org/react'
 import { useMutation } from 'react-query'
 import appApi from '@/http/app.api'
-import { useRouter } from 'next/navigation'
-import useAuthStore from '@/store/auth/auth.store'
-import useUserStore from '@/store/user/user.store'
+import { useUser } from '@/hooks/user.hook'
+import router from 'next/router'
 export default function LogoutButton() {
-  const { setMessage, setEmail } = useAuthStore()
-  const { setUser } = useUserStore()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
-  const router = useRouter()
-
+  const { logout } = useUser()
   const mutation = useMutation({
     mutationFn: () => {
       return appApi.get('/api/auth/logout')
     },
     onSuccess: () => {
       router.push('/auth')
-      setMessage({ state: 'primary', text: 'See you again' })
-      setEmail(undefined)
-      setUser(undefined)
+      logout()
     },
   })
 

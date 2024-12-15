@@ -1,8 +1,8 @@
 import { RoleProps } from '@/store/roles/role.types'
 import fs from 'fs/promises'
-
+import path from 'path'
 class RolesDb {
-  #DB_PATH = process.cwd() + '/app/api/db/sessions/roles.json'
+  #DB_PATH = path.join(path.resolve('./'), 'db', 'sessions', 'roles.json')
   #ROLES?: RoleProps[]
 
   async getUserRole(userId: number) {

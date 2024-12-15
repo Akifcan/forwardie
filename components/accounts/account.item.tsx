@@ -1,4 +1,5 @@
 import { UserProps } from '@/app/api/auth/auth.types'
+import { useUser } from '@/hooks/user.hook'
 import appApi from '@/http/app.api'
 import { queryClient } from '@/providers/query.provider'
 import useAuthStore from '@/store/auth/auth.store'
@@ -8,11 +9,12 @@ import { useMutation } from 'react-query'
 
 export default function AccountItem({ account, className }: Readonly<{ account: UserProps; className?: string }>) {
   const { setMessage } = useAuthStore()
+  const { logout } = useUser()
   const router = useRouter()
 
   const handleRemoveAccount = useMutation({
     mutationFn: () => {
-      setMessage(undefined)
+      logout()
       return appApi.delete(`/api/auth/accounts/${account.id}`)
     },
     onSuccess: () => {

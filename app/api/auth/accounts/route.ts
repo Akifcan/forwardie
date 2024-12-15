@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import accountDb from '../../db/accounts/account.db'
+import accountDb from '../../../../db/accounts/account.db'
 import jsonPlaceholderApi from '@/http/json-placeholder.api'
 
 async function GET() {

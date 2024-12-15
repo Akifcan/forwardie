@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import sessionDb from '../../db/sessions/session.db'
+import sessionDb from '../../../../db/sessions/session.db'
 import otpVerifySchema from '@/schemas/otp-verify.schema'
 import { cookies } from 'next/headers'
 import { v4 as uuidv4 } from 'uuid'
-import accountDb from '../../db/accounts/account.db'
+import accountDb from '../../../../db/accounts/account.db'
 
 async function POST(req: NextRequest) {
   try {

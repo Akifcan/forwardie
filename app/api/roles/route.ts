@@ -1,7 +1,7 @@
 import roleSchema from '@/schemas/role.schema'
 import { NextRequest, NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
-import rolesDb from '../db/sessions/roles.db'
+import rolesDb from '../../../db/sessions/roles.db'
 import { UserProps } from '../auth/auth.types'
 
 async function POST(req: NextRequest) {

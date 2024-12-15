@@ -1,7 +1,7 @@
 import jsonPlaceholderApi from '@/http/json-placeholder.api'
 import { NextRequest, NextResponse } from 'next/server'
 import { UserProps } from './auth.types'
-import sessionDb from '../db/sessions/session.db'
+import sessionDb from '../../../db/sessions/session.db'
 import authSchema from '@/schemas/auth.schema'
 
 async function POST(req: NextRequest) {

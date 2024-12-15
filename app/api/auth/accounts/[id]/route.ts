@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import accountDb from '@/app/api/db/accounts/account.db'
+import accountDb from '@/db/accounts/account.db'
 import jsonPlaceholderApi from '@/http/json-placeholder.api'
-import session from '@/app/api/db/sessions/session.db'
+import session from '@/db/sessions/session.db'
 
 async function DELETE(_: NextRequest, params: { params: Promise<{ id: number }> }) {
   const cookieStore = await cookies()

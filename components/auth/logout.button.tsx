@@ -4,10 +4,11 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure
 import { useMutation } from 'react-query'
 import appApi from '@/http/app.api'
 import { useUser } from '@/hooks/user.hook'
-import router from 'next/router'
+import { useRouter } from 'next/navigation'
 export default function LogoutButton() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const { logout } = useUser()
+  const router = useRouter()
   const mutation = useMutation({
     mutationFn: () => {
       return appApi.get('/api/auth/logout')

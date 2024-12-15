@@ -1,5 +1,10 @@
 # Forwardie
 
+[![Build](https://github.com/Akifcan/forwardie/actions/workflows/build.yml/badge.svg)](https://github.com/Akifcan/forwardie/actions/workflows/build.yml)
+[![CommitLint CI](https://github.com/Akifcan/forwardie/actions/workflows/commitlint.yml/badge.svg)](https://github.com/Akifcan/forwardie/actions/workflows/commitlint.yml)
+[![Format](https://github.com/Akifcan/forwardie/actions/workflows/format.yml/badge.svg)](https://github.com/Akifcan/forwardie/actions/workflows/format.yml)
+[![TypeCheck](https://github.com/Akifcan/forwardie/actions/workflows/type-check.yml/badge.svg)](https://github.com/Akifcan/forwardie/actions/workflows/type-check.yml)
+
 **- Go to app:** http://139.59.210.72:5017
 
 ## Installation

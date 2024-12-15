@@ -12,6 +12,7 @@ export interface AuthProps {
 
 export interface EnterOtpProps extends AuthProps {
   token: string
+  session: { userId: number; sessionId: string }
 }
 
 export interface AddressProps {

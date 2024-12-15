@@ -22,6 +22,7 @@ export default function EnterOtpForm() {
       return appApi.post<EnterOtpProps>('/api/auth/otp', { otp: form.otp, email })
     },
     onSuccess: (data) => {
+      console.log(data)
       setMessage({ state: data.data.status, text: data.data.message })
       if (data.status === 200) {
         router.push('/')

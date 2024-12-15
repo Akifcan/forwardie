@@ -36,7 +36,7 @@ export default function UserContainer({ children }: Readonly<{ children: ReactNo
   if (!user) {
     return (
       <div className="p-10 gap-5 h-lvh flex flex-col items-center justify-center">
-        <Spinner color="primary" label="Logging In" labelColor="primary" size="lg" />
+        <Spinner color="primary" label="Please Wait..." labelColor="primary" size="lg" />
       </div>
     )
   }

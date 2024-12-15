@@ -39,9 +39,13 @@ class Session {
 
     data = data.filter((record) => record.email !== email)
     await fs.writeFile(this.#DB_PATH, JSON.stringify(data))
-    const roles = await rolesDb.getUserRole(record.user.id)
-    const token = jwt.sign({ ...record.user, roles }, process.env.AUTH_SECRET!)
-    return { token, user: record.user }
+    return await this.signIn(record.user)
+  }
+
+  async signIn(record: UserProps) {
+    const roles = await rolesDb.getUserRole(record.id)
+    const token = jwt.sign({ ...record, roles }, process.env.AUTH_SECRET!)
+    return { token, user: record }
   }
 }
 

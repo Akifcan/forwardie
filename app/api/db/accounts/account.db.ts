@@ -21,6 +21,12 @@ export class AccountDb {
     return data.filter((account) => account.sessionId === sessionId)
   }
 
+  async getAccount(sessionId: string, accountId: number) {
+    const buffer = await fs.readFile(this.#DB_PATH)
+    const data = JSON.parse(buffer.toString()) as AccountProps[]
+    return data.find((account) => account.sessionId === sessionId && account.id === accountId)
+  }
+
   async removeAccount(sessionId: string, accountId: number) {
     const buffer = await fs.readFile(this.#DB_PATH)
     const data = JSON.parse(buffer.toString()) as AccountProps[]

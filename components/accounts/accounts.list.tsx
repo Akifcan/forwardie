@@ -34,7 +34,7 @@ export default function AccountsList() {
       <h3 className="text-xl">Your Accounts</h3>
       <Divider />
       <Virtuoso
-        style={{ height: '200px' }}
+        style={{ height: '200px', minHeight: '250px' }}
         totalCount={data.data.accounts.length}
         itemContent={(index) => {
           const account = data.data.accounts[index]

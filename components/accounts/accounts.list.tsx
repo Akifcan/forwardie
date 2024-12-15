@@ -12,7 +12,11 @@ export default function AccountsList() {
   })
 
   if (isError) {
-    return <Alert color="danger" title="Fetching error occured while loading your acconunts" />
+    return (
+      <div className="w-full">
+        <Alert color="danger" title="Fetching error occured while loading your acconunts" />
+      </div>
+    )
   }
 
   if (isLoading) {

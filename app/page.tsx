@@ -1,4 +1,5 @@
 'use client'
+import CompanyCard from '@/components/company.card'
 import AlbumsList from '@/components/dashboard/albums.list'
 import PostsList from '@/components/dashboard/posts.list'
 import TodosList from '@/components/dashboard/todos.list'
@@ -9,6 +10,7 @@ export default function Home() {
   const { isMobile } = useResponsive()
   return (
     <UserContainer>
+      <CompanyCard />
       <div className={`grid gap-5 ${isMobile ? 'grid-cols-1' : 'grid-cols-3'}`}>
         <PostsList />
         <AlbumsList />

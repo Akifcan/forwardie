@@ -2,8 +2,8 @@ import appApi from '@/http/app.api'
 import otpSchema from '@/schemas/otp.schema'
 import useAuthStore from '@/store/auth/auth.store'
 import { EnterOtpProps } from '@/app/api/auth/auth.types'
-import { Button, Form, Input } from '@nextui-org/react'
-import { ClipboardEvent, FormEvent } from 'react'
+import { Button, Form, InputOtp } from '@nextui-org/react'
+import { ClipboardEvent, FormEvent, useState } from 'react'
 import { useMutation } from 'react-query'
 import { useRouter } from 'next/navigation'
 import { AlertStateProps } from '@/store/auth/auth.types'
@@ -11,7 +11,7 @@ import { AlertStateProps } from '@/store/auth/auth.types'
 export default function EnterOtpForm() {
   const router = useRouter()
   const { setEmail, setMessage, email } = useAuthStore()
-
+  const [value, setValue] = useState('')
   const handleResetLoginState = () => {
     setEmail(undefined)
     setMessage(undefined)
@@ -44,8 +44,7 @@ export default function EnterOtpForm() {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault()
-      const data = Object.fromEntries(new FormData(e.currentTarget))
-      const validData = otpSchema.validateSync(data)
+      const validData = otpSchema.validateSync({ otp: value })
       handleOtpCode(validData.otp)
     } catch (e: unknown) {
       console.log(e)
@@ -65,7 +64,8 @@ export default function EnterOtpForm() {
 
   return (
     <Form onSubmit={onSubmit} className="w-full gap-5" key={'otp'}>
-      <Input onPaste={handlePaste} isRequired label="Enter OTP Code" labelPlacement="outside" name="otp" placeholder="Enter OTP Code" type="number" max={4} />
+      {/* <Input onPaste={handlePaste} isRequired label="Enter OTP Code" labelPlacement="outside" name="otp" placeholder="Enter OTP Code" type="number" max={4} /> */}
+      <InputOtp length={4} value={value} onValueChange={setValue} onPaste={handlePaste} />
       <div className="flex gap-3">
         <Button variant="solid" isLoading={mutation.isLoading} type="submit">
           Submit OTP Code
